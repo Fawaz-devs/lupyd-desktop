@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { UserAvatar } from "@/components/user-avatar"
 import { useAuth } from "@/context/auth-context"
 import { EncryptionPlugin, type BGroupInfo } from "@/context/encryption-plugin"
+import { usePathParams } from "@/hooks/use-path-params"
 import { toast } from "@/hooks/use-toast"
 import { fromBase64 } from "@/lib/utils"
 import { GroupPermission, hasPermission, type GroupRole } from "@/types/permission-types"
@@ -27,16 +28,14 @@ import {
   Upload
 } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 
 export default function GroupSettingsPage() {
-
-
-
   const navigate = useNavigate()
-  const { id } = useParams()
+
+  const { id } = usePathParams<{ id: string }>('/groups/:id')  
   const auth = useAuth()
   const [groupInfo, setGroupInfo] = useState<BGroupInfo | undefined>(undefined)
   const [newMemberUsername, setNewMemberUsername] = useState("")

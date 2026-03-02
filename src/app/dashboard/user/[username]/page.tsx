@@ -16,11 +16,12 @@ import { UserAvatar } from "@/components/user-avatar"
 import { useApiService } from "@/context/apiService"
 import { useAuth } from "@/context/auth-context"
 import { useUserData } from "@/context/userdata-context"
+import { usePathParams } from "@/hooks/use-path-params"
 
 import { Ban, Bookmark, Grid, List, MessageSquare, MoreHorizontal, Settings, UserMinus, UserPlus } from "lucide-react"
 import { FetchType, PostProtos, ulidStringify, UserProtos } from "lupyd-js"
 import { useEffect, useMemo, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function ProfilePage() {
   const router = useNavigate()
@@ -30,7 +31,7 @@ export default function ProfilePage() {
   const [savedPosts, setSavedPosts] = useState<PostProtos.FullPost[]>([])
   const [user, setUser] = useState<UserProtos.User | null>(null)
 
-  const params = useParams()
+  const params = usePathParams<{ username: string }>("/user/:username")
 
   // Ref for the main content area
 

@@ -1,8 +1,8 @@
 import { UserAvatar } from "@/components/user-avatar"
 import { useAuth } from "@/context/auth-context"
-import { EncryptionPlugin, userMessageToBUserMessage } from "@/context/encryption-plugin"
 import * as fireflyContext from "@/context/firefly-context"
 import { CallSession } from "@/context/user-call-context"
+import { usePathParams } from "@/hooks/use-path-params"
 import { protos as FireflyProtos } from "firefly-client-js"
 import { Maximize2, Mic, MicOff, Minimize2, PhoneOff, RefreshCw, Video, VideoOff } from "lucide-react"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -19,7 +19,8 @@ enum SessionInitiationStatus {
 export default function UserCallPage() {
 
   const [searchParams, _setSearchParams] = useSearchParams()
-  const params = useParams()
+
+  const params = usePathParams<{ username: string }>('/messages/:username')
   const auth = useAuth()
   const other = params.username!.toString()
 

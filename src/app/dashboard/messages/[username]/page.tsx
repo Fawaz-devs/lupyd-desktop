@@ -8,7 +8,7 @@ import { protos as FireflyProtos } from "firefly-client-js"
 
 import { useAuth } from '@/context/auth-context'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import {
   DropdownMenu,
@@ -40,6 +40,7 @@ import { toast } from "@/hooks/use-toast"
 import { encryptBlobV1, formatNumber, SIZE_LOOKUP_TABLE } from "@/lib/utils"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { SortedArray } from "sorted-array"
+import { usePathParams } from "@/hooks/use-path-params"
 
 const emojiOptions = ["👍", "❤️", "😂", "😮", "😢", "🙏", "🔥", "✨", "🎉", "👏"]
 
@@ -50,7 +51,8 @@ enum ContentType {
 }
 
 export default function UserMessagePage() {
-  const params = useParams()
+
+  const params = usePathParams<{ username: string }>('/messages/:username')
   const receiver = params.username?.toString()
   const auth = useAuth()
   const navigate = useNavigate();

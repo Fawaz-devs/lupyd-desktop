@@ -6,14 +6,16 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { EncryptionPlugin, type BGroupInfo } from "@/context/encryption-plugin"
+import { usePathParams } from "@/hooks/use-path-params"
 import { fromBase64 } from "@/lib/utils"
 import { protos } from "firefly-client-js"
 import { Hash, Menu, Plus, Settings, Volume2 } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function GroupChannelListPage() {
-  const { id } = useParams()
+
+  const { id } = usePathParams<{ id: string }>('/groups/:id')  
   const navigate = useNavigate()
 
   const [groupInfo, setGroupInfo] = useState<BGroupInfo | undefined>(undefined)
